@@ -15,9 +15,11 @@
     "axios": "^1.17.0",
     "firebase": "^12.14.0",
     "framer-motion": "^12.40.0",
+    "lottie-react": "^2.4.1",
     "react": "^19.2.6",
     "react-awesome-reveal": "^4.3.1",
     "react-dom": "^19.2.6",
+    "react-hook-form": "^7.78.0",
     "react-responsive-carousel": "^3.2.23",
     "react-router": "^7.16.0",
     "tailwindcss": "^4.3.0"
