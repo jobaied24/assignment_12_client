@@ -5,6 +5,7 @@ import { Component } from "react";
 import AuthLayout from "../Layout/AuthLayout";
 import { path } from "framer-motion/client";
 import Login from "../Pages/Authentication/Login/Login";
+import Register from "../Pages/Authentication/Register/Register";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
       path:'login',
       Component:Login
+      },
+      {
+        path:'register',
+        Component:Register
       }
     ]
   }
