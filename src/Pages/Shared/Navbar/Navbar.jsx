@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router';
 import CampCureLogo from '../CampLogo/CampCureLogo';
+import { AuthContext } from '../../../Context/AuthContext';
+import { Link } from 'react-router';
+
 
 const Navbar = () => {
+  const {user,logOut}=useContext(AuthContext);
+
+  const handleLogOut = () =>{
+    logOut()
+    .then(()=>{
+      console.log('sign out successfully');
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  }
 
   const nav = <>
        <li><NavLink to='/'>HOME</NavLink></li>
@@ -41,7 +55,11 @@ const Navbar = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn btn-primary">Join Us</a>
+    {
+      user ? <a onClick={handleLogOut} className="btn btn-primary">Logout</a>
+      : <Link to='login' className="btn btn-primary">LogIn</Link>
+    }
+    
   </div>
 </div>
     );
