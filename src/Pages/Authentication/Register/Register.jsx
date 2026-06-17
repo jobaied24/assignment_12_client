@@ -1,19 +1,53 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import { AuthContext } from '../../../Context/AuthContext';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import axios from 'axios';
+import firebase from 'firebase/compat/app';
 
 const Register = () => {
   const {register,handleSubmit}=useForm();
-  const {createUser}=useContext(AuthContext);
+  const {createUser,updateProfilePic}=useContext(AuthContext);
+  const [profilePic,setProfilePic]=useState('');
 
 const onSubmit = data =>{
   createUser(data.email,data.password)
   .then((result)=>{
     console.log('user registered successfully');
-    console.log(result.user)
+    console.log(result.user);
+
+    // update profile in database
+
+//  update profile in firebase
+const updateProfileInfo = {
+  displayName:data.name,
+  photoURL:profilePic
+}
+
+updateProfilePic(updateProfileInfo)
+.then(()=>{
+  console.log('Profile updated');
+})
+.catch((error)=>{
+  console.log(error);
+})
   })
+};
+
+
+// image upload
+const handleImageUpload = async(e) =>{
+  const image = e.target.files[0];
+  const formData = new FormData();
+  formData.append('image',image);
+  const imageUploadURL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`
+
+  const res=await axios.post(imageUploadURL,formData);
+  setProfilePic(res.data.data.url);
+  console.log(res.data.data.url);
+
+
 }
 
     return (
@@ -25,12 +59,12 @@ const onSubmit = data =>{
            
             {/* name */}
           <label className="label">Name</label>
-          <input type="name" {...register('name')}
+          <input type="text" {...register('name',{required:true})}
            className="input w-full" placeholder="Name" />
           
             {/* photo URL */}
           <label className="label">Photo</label>
-          <input type="photo" {...register('photo')}
+          <input type="file" onChange={handleImageUpload}
            className="input w-full" placeholder="Photo URL" />
           
             {/* email */}
@@ -45,7 +79,7 @@ const onSubmit = data =>{
        
         {/* phone */}
           <label className="label">Phone</label>
-          <input type="phone" {...register('phone')}
+          <input type="number" {...register('phone',{required:true})}
            className="input w-full" placeholder="Phone" />
 
 
