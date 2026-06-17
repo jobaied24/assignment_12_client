@@ -4,20 +4,32 @@ import { Link } from 'react-router';
 import { AuthContext } from '../../../Context/AuthContext';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import axios from 'axios';
-import firebase from 'firebase/compat/app';
+import useAxios from '../../../Hook/useAxios';
 
 const Register = () => {
   const {register,handleSubmit}=useForm();
   const {createUser,updateProfilePic}=useContext(AuthContext);
   const [profilePic,setProfilePic]=useState('');
+  const axiosInstance=useAxios();
 
 const onSubmit = data =>{
   createUser(data.email,data.password)
-  .then((result)=>{
+  .then(async(result)=>{
     console.log('user registered successfully');
     console.log(result.user);
 
     // update profile in database
+    const userInfo = {
+      email:data.email,
+      role:'participent',
+      created_at: new Date().toISOString(),
+      last_login: new Date().toISOString()
+    } ;
+
+    const userRes = await axiosInstance.post('/users',userInfo);
+    console.log(userRes.data);
+
+
 
 //  update profile in firebase
 const updateProfileInfo = {
