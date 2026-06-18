@@ -1,13 +1,28 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
+import useAxios from '../../../Hook/useAxios';
 
 const SocialLogin = () => {
     const {googleSignIn}=useContext(AuthContext);
+    const axiosInstance = useAxios();
 
     const handleGoogleSignIn = () =>{
         googleSignIn()
-        .then((result)=>{
+        .then(async(result)=>{
             console.log(result.user);
+            console.log(result.user.email);
+            
+    // update profile in database
+    const userInfo = {
+      email:result.user.email,
+      role:'participent',
+      created_at: new Date().toISOString(),
+      last_login: new Date().toISOString()
+    } ;
+
+    const userRes = await axiosInstance.post('/users',userInfo);
+    console.log(userRes.data);
+
         })
         .catch((error)=>{
             console.log(error);
