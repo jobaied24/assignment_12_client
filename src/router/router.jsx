@@ -6,6 +6,7 @@ import AuthLayout from "../Layout/AuthLayout";
 import { path } from "framer-motion/client";
 import Login from "../Pages/Authentication/Login/Login";
 import Register from "../Pages/Authentication/Register/Register";
+import AddCamp from "../Pages/AdminRouts/AddCamp/AddCamp";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
     {
         index:true,
         Component:Home
+    },
+    {
+      path:'addCamp',
+      element:<AddCamp></AddCamp>
     }
 ]
   },
