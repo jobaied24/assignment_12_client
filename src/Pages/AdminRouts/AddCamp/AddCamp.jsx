@@ -1,133 +1,3 @@
-// import { useForm } from "react-hook-form";
-
-// const AddCamp = () => {
-//   const {
-//     register,
-//     handleSubmit,
-//     reset,
-//     formState: { errors },
-//   } = useForm();
-
-//   const onSubmit = (data) => {
-//     const campData = {
-//       ...data,
-//       campFees: Number(data.campFees),
-//       participantCount: 0,
-//       createdAt: new Date().toISOString(),
-//     };
-
-//     console.log(campData);
-
-//     // axios.post('/camps', campData)
-
-//     reset();
-//   };
-
-//   return (
-//     <div className="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow">
-//       <h2 className="text-3xl font-bold mb-6 text-primary">
-//         Add Medical Camp
-//       </h2>
-
-//       <form onSubmit={handleSubmit(onSubmit)}>
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-//           {/* Camp Name */}
-//           <div>
-//             <label className="label">Camp Name</label>
-//             <input
-//               type="text"
-//               className="input input-bordered w-full"
-//               placeholder="Camp Name"
-//               {...register("campName", { required: true })}
-//             />
-//           </div>
-
-//           {/* Camp Fees */}
-//           <div>
-//             <label className="label">Camp Fees</label>
-//             <input
-//               type="number"
-//               className="input input-bordered w-full"
-//               placeholder="Camp Fee"
-//               {...register("campFees", { required: true })}
-//             />
-//           </div>
-
-//           {/* Date & Time */}
-//           <div>
-//             <label className="label">Date & Time</label>
-//             <input
-//               type="datetime-local"
-//               className="input input-bordered w-full"
-//               {...register("dateTime", { required: true })}
-//             />
-//           </div>
-
-//           {/* Location */}
-//           <div>
-//             <label className="label">Location</label>
-//             <input
-//               type="text"
-//               className="input input-bordered w-full"
-//               placeholder="Camp Location"
-//               {...register("location", { required: true })}
-//             />
-//           </div>
-
-//           {/* Healthcare Professional */}
-//           <div>
-//             <label className="label">
-//               Healthcare Professional
-//             </label>
-//             <input
-//               type="text"
-//               className="input input-bordered w-full"
-//               placeholder="Doctor Name"
-//               {...register("healthcareProfessional", {
-//                 required: true,
-//               })}
-//             />
-//           </div>
-
-//           {/* Image URL */}
-//           <div>
-//             <label className="label">Image URL</label>
-//             <input
-//               type="text"
-//               className="input input-bordered w-full"
-//               placeholder="Image URL"
-//               {...register("image", { required: true })}
-//             />
-//           </div>
-//         </div>
-
-//         {/* Description */}
-//         <div className="mt-5">
-//           <label className="label">Description</label>
-//           <textarea
-//             rows="5"
-//             className="textarea textarea-bordered w-full"
-//             placeholder="Camp Description"
-//             {...register("description", {
-//               required: true,
-//             })}
-//           />
-//         </div>
-
-//         <button
-//           type="submit"
-//           className="btn btn-primary mt-6 w-full"
-//         >
-//           Add Camp
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default AddCamp;
-
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -138,7 +8,6 @@ import Swal from 'sweetalert2';
 const AddCamp = () => {
     const { register, handleSubmit } = useForm();
     const axiosSecure = useAxiosSecure();
-    const axiosInstance = useAxios();
     const [ImageURL, setImageURL] = useState(null);
 
     const onSubmit = async (data) => {
@@ -153,7 +22,7 @@ const AddCamp = () => {
 
         console.log(campData);
 
-        await axiosInstance.post('/camps', campData)
+        await axiosSecure.post('/addCamps', campData)
             .then(res => {
                 console.log(res.data);
 

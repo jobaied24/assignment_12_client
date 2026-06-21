@@ -2,22 +2,25 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 
-const axiosInstance= axios.create({
-    baseURL:'http://localhost:5000'
+const axiosInstance = axios.create({
+    baseURL: 'http://localhost:5000'
 });
 
 
 
 const useAxiosSecure = () => {
-    const {user}=useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-    axiosInstance.interceptors.request.use(config=>{
-        config.headers.authorization = `Bearer ${user.accessToken}`
+    axiosInstance.interceptors.request.use(config => {
+
+        if (user?.accessToken) {
+            config.headers.authorization = `Bearer ${user.accessToken}`
+        }
         return config;
-    },error=>{
+    }, error => {
         return Promise.reject(error);
     })
-    
+
     return axiosInstance;
 };
 
