@@ -7,6 +7,7 @@ import { path } from "framer-motion/client";
 import Login from "../Pages/Authentication/Login/Login";
 import Register from "../Pages/Authentication/Register/Register";
 import AddCamp from "../Pages/AdminRouts/AddCamp/AddCamp";
+import AllCamps from "../Pages/Home/AllCamps/AllCamps";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
     {
       path:'addCamp',
       element:<AddCamp></AddCamp>
+    },
+    {
+      path:'allCamps',
+      element:<AllCamps></AllCamps>
     }
 ]
   },

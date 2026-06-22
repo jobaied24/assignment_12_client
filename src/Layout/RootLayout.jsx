@@ -1,13 +1,17 @@
-import React from 'react';
 import { Outlet } from 'react-router';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 import Footer from '../Pages/Shared/Footer/Footer';
 
 const RootLayout = () => {
+  
     return (
-        <div>
+        <div className='min-h-screen flex flex-col'>
             <Navbar></Navbar>
-            <Outlet></Outlet>
+            
+            <div className='flex-grow'>
+          <Outlet></Outlet>
+            </div>
+  
             <Footer></Footer>
         </div>
     );
