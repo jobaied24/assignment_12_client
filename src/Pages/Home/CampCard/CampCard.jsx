@@ -59,7 +59,7 @@ console.log(formattedDate);
 </div>
 
     <div className="card-actions mt-4 justify-end">
-      <Link to={`/allItems/${camp._id}`} className="btn bg-primary w-full text-white">View Details</Link>
+      <Link to={`/camp-details/${camp._id}`} className="btn bg-primary w-full text-white">View Details</Link>
     </div>
   </div>
 </div>

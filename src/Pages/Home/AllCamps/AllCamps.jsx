@@ -17,10 +17,16 @@ const AllCamps = () => {
     console.log(camps);
 
     return (
-        <div className='grid md:grid-cols-3 grid-cols-1 gap-8 mt-16 md:mt-20 mb-4 md:mb-16 mx-12'>
+        <div>
+       <div className='text-5xl text-center mt-12 md:mt-16 font-semibold text-[#34ebae]'>
+        Available Camps
+       </div>
+
+        <div className='grid md:grid-cols-3 grid-cols-1 gap-8 mt-12 md:mt-16 mb-4 md:mb-16 mx-12'>
             {
                 camps.map(camp=><CampCard key={camp._id} camp={camp}></CampCard>)
             }
+        </div>
         </div>
     );
 };
