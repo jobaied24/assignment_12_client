@@ -42,7 +42,7 @@ const Home = () => {
 
             {/* see all camp btn */}
             <div className='flex justify-center'>
-            <Link to='/allCamps' className='btn btn-primary text-lg px-6 md:px-8 hover:scale-105 transition'>See All Camps</Link>
+            <Link to='/allCamps' className='btn btn-primary btn-outline text-lg px-6 md:px-8 hover:scale-105 transition'>See All Camps</Link>
             </div>
 
         </div>
