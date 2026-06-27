@@ -8,20 +8,23 @@ import {
   FaUserMd,
   FaUsers,
   FaMoneyBillWave,
-   FaArrowRight 
 } from "react-icons/fa";
+import { useForm } from 'react-hook-form';
+import CampModal from './CampModal';
 
 
 const CampDetails = () => {
     const {campId} = useParams();
     const axiosSecure = useAxiosSecure();
+  
 
-    const {data:camp=[]}=useQuery({
+    const {data:camp=[],refetch}=useQuery({
         queryKey:['camp',campId],
         queryFn:async()=>{
             const res = await axiosSecure.get(`/camps/${campId}`);
             return res.data;
-        }
+        },
+       
     });
 
     console.log(camp);
@@ -97,45 +100,7 @@ const formattedDate = date.toLocaleString('en-US', {
     className="w-full h-[400px] shadow-md rounded-xl object-cover"
   />
 
-  {/* Details */}
-  {/* <div className="space-y-5">
 
-    <h1 className="text-4xl font-bold">
-      {camp.campName}
-    </h1>
-
-    <div className="space-y-4">
-
-      <p className="flex items-center gap-3">
-        <FaCalendarAlt className="text-primary" />
-        {camp.dateTime}
-      </p>
-
-      <p className="flex items-center gap-3">
-        <FaMapMarkerAlt className="text-primary" />
-        {camp.location}
-      </p>
-
-      <p className="flex items-center gap-3">
-        <FaUserMd className="text-primary" />
-        {camp.healthcareProfessional}
-      </p>
-
-      <p className="flex items-center gap-3">
-        <FaMoneyBillWave className="text-primary" />
-        ৳ {camp.campFees}
-      </p>
-
-      <p className="flex items-center gap-3">
-        <FaUsers className="text-primary" />
-        {camp.participantCount} Participants
-      </p>
-
-    </div>
-
-  </div> */}
-
-  
   {/* Description */}
   <div className=" card shadow-md h-full bg-[#EFF6FF]">
     <div className='card-body p-10'>
@@ -150,7 +115,6 @@ const formattedDate = date.toLocaleString('en-US', {
     </div>
   </div>
 </div>
-
 
 
 {/* join camp button */}
@@ -170,10 +134,7 @@ const formattedDate = date.toLocaleString('en-US', {
 
   </div>
 
-      <button className="btn btn-primary btn-lg px-10 mr-10">
-      Join Camp
-      <FaArrowRight className='ml-1 text-xl' />
-    </button>
+ <CampModal camp={camp} refetch={refetch}></CampModal>
 
 </div>
 
