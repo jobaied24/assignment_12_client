@@ -3,12 +3,14 @@ import Home from "../Pages/Home/Home";
 import RootLayout from "../Layout/RootLayout";
 import { Component } from "react";
 import AuthLayout from "../Layout/AuthLayout";
-import { path } from "framer-motion/client";
 import Login from "../Pages/Authentication/Login/Login";
 import Register from "../Pages/Authentication/Register/Register";
 import AddCamp from "../Pages/AdminRouts/AddCamp/AddCamp";
 import AllCamps from "../Pages/Home/AllCamps/AllCamps";
 import CampDetails from "../Pages/Home/CampDetails/CampDetails";
+import DashBoardLayout from "../Layout/DashBoardLayout";
+import PrivateRouts from "../Routs/PrivateRouts";
+import MyRegesteredCamps from "../Pages/DashBoard/MyRegesteredCamps/MyRegesteredCamps";
 
 export const router = createBrowserRouter([
   {
@@ -46,5 +48,18 @@ export const router = createBrowserRouter([
         Component:Register
       }
     ]
-  }
+  },
+{
+  path:'/dashboard',
+  element:<PrivateRouts>
+    <DashBoardLayout></DashBoardLayout>
+  </PrivateRouts>,
+  children:[
+    {
+      path:'myRegesteredCamps',
+      element:<MyRegesteredCamps></MyRegesteredCamps>
+    }
+  ]
+  
+}
 ]);

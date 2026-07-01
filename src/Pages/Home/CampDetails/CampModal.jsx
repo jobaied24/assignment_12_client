@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FaArrowRight } from 'react-icons/fa';
 import { AuthContext } from '../../../Context/AuthContext';
 import useAxiosSecure from '../../../Hook/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const CampModal = ({ camp,refetch}) => {
     const { register, handleSubmit } = useForm();
@@ -14,6 +15,7 @@ const CampModal = ({ camp,refetch}) => {
             ...data,
             campFees:Number(camp.campFees),
             campId:camp._id,
+            campDate:camp.dateTime,
             createAt:new Date().toISOString()
         }
         console.log(registrationData);
@@ -21,6 +23,14 @@ const CampModal = ({ camp,refetch}) => {
         axiosSecure.post('/campRegistration',registrationData)
         .then((res)=>{
             console.log(res.data);
+           
+            Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Registration Successful",
+  showConfirmButton: false,
+  timer: 1500
+});
             refetch();
         })
         .catch((error)=>{
