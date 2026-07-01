@@ -16,6 +16,7 @@ const CampModal = ({ camp,refetch}) => {
             campFees:Number(camp.campFees),
             campId:camp._id,
             campDate:camp.dateTime,
+            confirmationStatus:'pending',
             createAt:new Date().toISOString()
         }
         console.log(registrationData);

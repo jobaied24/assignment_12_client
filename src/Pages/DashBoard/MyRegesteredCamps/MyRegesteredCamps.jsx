@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
     FaMoneyBillWave,
     FaCommentDots,
@@ -7,12 +7,14 @@ import {
 } from "react-icons/fa";
 import { AuthContext } from "../../../Context/AuthContext";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
+import Swal from "sweetalert2";
+
 
 const MyRegisteredCamps = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext);
 
-    const { data: myCamps = [], isLoading } = useQuery({
+    const { data: myCamps = [], isLoading,refetch} = useQuery({
         queryKey: ["registeredCamp", user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -23,9 +25,56 @@ const MyRegisteredCamps = () => {
         },
     });
 
+
     const formatDate = (date) => {
         return new Date(date).toLocaleDateString();
     };
+
+
+    // cancel regestration mutation
+const cancelRegMutation = useMutation({
+    mutationFn: async(id) =>{
+        const res = await axiosSecure.delete(`/campRegistration/${id}`);
+        return res.data;
+    },
+    onSuccess:()=>{
+        refetch();
+
+             Swal.fire({
+    title: "Cancelled!",
+    text: "Registration cancelled successfully",
+    icon: "success"
+  });
+    },
+    onError:(error)=>{
+            Swal.fire({
+      icon: "error",
+      title: "Cancellation failed",
+      text: error.message,
+    });
+    }
+});
+
+
+    // cancel
+    const handleCancel = (id) =>{
+        console.log(id)
+    
+        Swal.fire({
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, cancel it!",
+  cancelButtonText: "Keep Registration"
+}).then((result) => {
+  if (result.isConfirmed)
+    cancelRegMutation.mutate(id);
+
+});
+    }
 
     if (isLoading) {
         return (
@@ -90,7 +139,7 @@ const MyRegisteredCamps = () => {
                                     <td className="text-gray-700">{camp.participantName}</td>
 
                                     {/* camp date */}
-                                    <td  className="text-gray-700">{formatDate(camp.dateTime)}</td>
+                                    <td  className="text-gray-700">{formatDate(camp.campDate)}</td>
 
                                     {/* confirmationStatus */}
                                     <td>
@@ -121,6 +170,7 @@ const MyRegisteredCamps = () => {
                                         )}
                                     </td>
 
+
                                     {/* feedback */}
                                     <td>
                                         <button
@@ -136,6 +186,7 @@ const MyRegisteredCamps = () => {
                                     <td>
                                         <button
                                             className="btn btn-error btn-sm"
+                                            onClick={()=>handleCancel(camp._id)}
                                             disabled={camp.paymentStatus === "paid"}
                                         >
                                             <FaTrashAlt />
