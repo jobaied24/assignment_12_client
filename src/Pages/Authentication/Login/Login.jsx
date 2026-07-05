@@ -1,17 +1,32 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../../Context/AuthContext';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { signIn } = useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from || '/';
+  const navigate = useNavigate();
 
   const onSubmit = data => {
     signIn(data.email, data.password)
       .then((res) => {
         console.log(res);
+
+        Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Login Successful!",
+  showConfirmButton: false,
+  timer: 1500
+});
+
+navigate(from);
+
       })
       .then((error) => {
         console.log(error)

@@ -1,16 +1,31 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
 import useAxios from '../../../Hook/useAxios';
+import { useLocation, useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 const SocialLogin = () => {
     const {googleSignIn}=useContext(AuthContext);
     const axiosInstance = useAxios();
+    const location = useLocation();
+    const from = location.state?.from || '/';
+    const navigate = useNavigate();
 
     const handleGoogleSignIn = () =>{
         googleSignIn()
         .then(async(result)=>{
             console.log(result.user);
             console.log(result.user.email);
+
+                Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Login Successful!",
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            navigate(from);
             
     // update profile in database
     const userInfo = {

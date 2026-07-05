@@ -8,11 +8,13 @@ import {
 import { AuthContext } from "../../../Context/AuthContext";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 
 const MyRegisteredCamps = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const { data: myCamps = [], isLoading,refetch} = useQuery({
         queryKey: ["registeredCamp", user?.email],
@@ -54,6 +56,12 @@ const cancelRegMutation = useMutation({
     });
     }
 });
+
+
+// payment
+const handlePay = id =>{
+    navigate(`/dashboard/payment/${id}`);
+}
 
 
     // cancel
@@ -163,7 +171,7 @@ const cancelRegMutation = useMutation({
                                                 Paid
                                             </button>
                                         ) : (
-                                            <button className="btn btn-primary btn-sm px-6">
+                                            <button   onClick={()=>{handlePay(camp._id)}}  className="btn btn-primary btn-sm px-6">
                                                 {/* <FaMoneyBillWave /> */}
                                                 Pay
                                             </button>

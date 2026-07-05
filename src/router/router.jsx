@@ -11,6 +11,7 @@ import CampDetails from "../Pages/Home/CampDetails/CampDetails";
 import DashBoardLayout from "../Layout/DashBoardLayout";
 import PrivateRouts from "../Routs/PrivateRouts";
 import MyRegesteredCamps from "../Pages/DashBoard/MyRegesteredCamps/MyRegesteredCamps";
+import Payment from "../Pages/DashBoard/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ export const router = createBrowserRouter([
     {
       path:'myRegesteredCamps',
       element:<MyRegesteredCamps></MyRegesteredCamps>
+    },
+    {
+      path:'payment/:id',
+      element:<Payment></Payment>
     }
   ]
   

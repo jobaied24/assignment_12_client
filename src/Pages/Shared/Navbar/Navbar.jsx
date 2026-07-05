@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 import CampCureLogo from '../CampLogo/CampCureLogo';
 import { AuthContext } from '../../../Context/AuthContext';
 import { Link } from 'react-router';
+import Swal from 'sweetalert2';
 
 
 const Navbar = () => {
@@ -11,7 +12,15 @@ const Navbar = () => {
   const handleLogOut = () =>{
     logOut()
     .then(()=>{
-      console.log('sign out successfully');
+
+              Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Logged Out Successfully!",
+        showConfirmButton: false,
+        timer: 1500
+      });
+
     })
     .catch((error)=>{
       console.log(error);
