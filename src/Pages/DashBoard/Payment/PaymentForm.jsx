@@ -26,6 +26,7 @@ const PaymentForm = () => {
 
    console.log(registeredInfo);
    const campFees = registeredInfo.campFees;
+   
 
 
     const handleSubmit = async(e) =>{
@@ -102,7 +103,11 @@ const paymentData = {
     registrationId:id,
     transactionId:result.paymentIntent.id,
     participentEmail:user.email,
-    amount:campFees
+    amount:campFees,
+    campName : registeredInfo.campName,
+    healthcareProfessional:registeredInfo.healthcareProfessional,
+    campDate: registeredInfo.campDate,
+    location: registeredInfo.location
 };
 
 const res = await axiosSecure.post('/payments',paymentData);
