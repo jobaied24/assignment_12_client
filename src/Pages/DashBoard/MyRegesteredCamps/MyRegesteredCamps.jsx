@@ -165,7 +165,7 @@ const handlePay = id =>{
                                     <td>
                                         {camp.paymentStatus === "paid" ? (
                                             <button
-                                                className="btn btn-success btn-sm"
+                                                className="btn btn-success btn-sm px-6"
                                                 disabled
                                             >
                                                 Paid

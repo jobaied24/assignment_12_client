@@ -12,6 +12,7 @@ import DashBoardLayout from "../Layout/DashBoardLayout";
 import PrivateRouts from "../Routs/PrivateRouts";
 import MyRegesteredCamps from "../Pages/DashBoard/MyRegesteredCamps/MyRegesteredCamps";
 import Payment from "../Pages/DashBoard/Payment/Payment";
+import PaymentHistory from "../Pages/DashBoard/Payment/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
     {
       path:'payment/:id',
       element:<Payment></Payment>
+    },
+    {
+      path:'paymentHistory',
+      element:<PaymentHistory></PaymentHistory>
     }
   ]
   

@@ -17,6 +17,7 @@ const CampModal = ({ camp,refetch}) => {
             campId:camp._id,
             campDate:camp.dateTime,
             confirmationStatus:'pending',
+            paymentStatus:'unPaid',
             createAt:new Date().toISOString()
         }
         console.log(registrationData);
