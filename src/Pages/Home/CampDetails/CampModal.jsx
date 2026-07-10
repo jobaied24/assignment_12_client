@@ -51,6 +51,7 @@ const CampModal = ({ camp,refetch}) => {
             <input type="checkbox" id='camp_modal' className='modal-toggle' />
 
             <div className='modal' role='dialog'>
+
                 <div className='modal-box max-w-5xl'>
                     <div className='card-body py-10 px-2'>
                         <form onSubmit={handleSubmit(onSubmit)}>
@@ -143,6 +144,7 @@ const CampModal = ({ camp,refetch}) => {
                         </form>
                     </div>
                 </div>
+                
                 <label className="modal-backdrop" htmlFor="camp_modal">Close</label>
             </div>
         </div>

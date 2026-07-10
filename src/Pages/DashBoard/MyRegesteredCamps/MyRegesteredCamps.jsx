@@ -9,6 +9,7 @@ import { AuthContext } from "../../../Context/AuthContext";
 import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import FeedbackModal from "../Feedback/FeedbackModal";
 
 
 const MyRegisteredCamps = () => {
@@ -16,7 +17,7 @@ const MyRegisteredCamps = () => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const { data: myCamps = [], isLoading,refetch} = useQuery({
+    const { data: myCamps = [], isLoading, refetch } = useQuery({
         queryKey: ["registeredCamp", user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -34,54 +35,54 @@ const MyRegisteredCamps = () => {
 
 
     // cancel regestration mutation
-const cancelRegMutation = useMutation({
-    mutationFn: async(id) =>{
-        const res = await axiosSecure.delete(`/campRegistration/${id}`);
-        return res.data;
-    },
-    onSuccess:()=>{
-        refetch();
+    const cancelRegMutation = useMutation({
+        mutationFn: async (id) => {
+            const res = await axiosSecure.delete(`/campRegistration/${id}`);
+            return res.data;
+        },
+        onSuccess: () => {
+            refetch();
 
-             Swal.fire({
-    title: "Cancelled!",
-    text: "Registration cancelled successfully",
-    icon: "success"
-  });
-    },
-    onError:(error)=>{
             Swal.fire({
-      icon: "error",
-      title: "Cancellation failed",
-      text: error.message,
+                title: "Cancelled!",
+                text: "Registration cancelled successfully",
+                icon: "success"
+            });
+        },
+        onError: (error) => {
+            Swal.fire({
+                icon: "error",
+                title: "Cancellation failed",
+                text: error.message,
+            });
+        }
     });
+
+
+    // payment
+    const handlePay = id => {
+        navigate(`/dashboard/payment/${id}`);
     }
-});
-
-
-// payment
-const handlePay = id =>{
-    navigate(`/dashboard/payment/${id}`);
-}
 
 
     // cancel
-    const handleCancel = (id) =>{
+    const handleCancel = (id) => {
         console.log(id)
-    
-        Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, cancel it!",
-  cancelButtonText: "Keep Registration"
-}).then((result) => {
-  if (result.isConfirmed)
-    cancelRegMutation.mutate(id);
 
-});
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, cancel it!",
+            cancelButtonText: "Keep Registration"
+        }).then((result) => {
+            if (result.isConfirmed)
+                cancelRegMutation.mutate(id);
+
+        });
     }
 
     if (isLoading) {
@@ -147,7 +148,7 @@ const handlePay = id =>{
                                     <td className="text-gray-700">{camp.participantName}</td>
 
                                     {/* camp date */}
-                                    <td  className="text-gray-700">{formatDate(camp.campDate)}</td>
+                                    <td className="text-gray-700">{formatDate(camp.campDate)}</td>
 
                                     {/* confirmationStatus */}
                                     <td>
@@ -171,7 +172,7 @@ const handlePay = id =>{
                                                 Paid
                                             </button>
                                         ) : (
-                                            <button   onClick={()=>{handlePay(camp._id)}}  className="btn btn-primary btn-sm px-6">
+                                            <button onClick={() => { handlePay(camp._id) }} className="btn btn-primary btn-sm px-6">
                                                 {/* <FaMoneyBillWave /> */}
                                                 Pay
                                             </button>
@@ -181,20 +182,23 @@ const handlePay = id =>{
 
                                     {/* feedback */}
                                     <td>
-                                        <button
-                                            className="btn btn-outline btn-secondary btn-sm"
-                                            disabled={camp.paymentStatus !== "paid"}
-                                        >
-                                            <FaCommentDots />
-                                            Feedback
-                                        </button>
+                                        {
+                                            camp.paymentStatus === "paid" ? <FeedbackModal camp={camp}></FeedbackModal>
+                                            :  <button
+                                                    className="btn btn-outline btn-secondary btn-sm"
+                                                    disabled
+                                                >
+                                                    <FaCommentDots />
+                                                    Feedback
+                                                </button>
+                                        }
                                     </td>
 
                                     {/* cancel */}
                                     <td>
                                         <button
                                             className="btn btn-error btn-sm"
-                                            onClick={()=>handleCancel(camp._id)}
+                                            onClick={() => handleCancel(camp._id)}
                                             disabled={camp.paymentStatus === "paid"}
                                         >
                                             <FaTrashAlt />

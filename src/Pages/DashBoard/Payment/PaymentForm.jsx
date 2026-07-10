@@ -28,7 +28,7 @@ const PaymentForm = () => {
    const campFees = registeredInfo.campFees;
    
 
-
+//    payment
     const handleSubmit = async(e) =>{
         e.preventDefault();
 
