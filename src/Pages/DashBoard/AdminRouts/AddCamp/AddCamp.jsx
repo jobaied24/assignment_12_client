@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import useAxiosSecure from '../../../Hook/useAxiosSecure';
-import useAxios from '../../../Hook/useAxios';
+import useAxiosSecure from '../../../../Hook/useAxiosSecure';
+import useAxios from '../../../../Hook/useAxios';
 import Swal from 'sweetalert2';
 
 const AddCamp = () => {

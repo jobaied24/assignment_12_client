@@ -102,7 +102,7 @@ const PaymentForm = () => {
 const paymentData = {
     registrationId:id,
     transactionId:result.paymentIntent.id,
-    participentEmail:user.email,
+    participantEmail:user?.email,
     amount:campFees,
     campName : registeredInfo.campName,
     healthcareProfessional:registeredInfo.healthcareProfessional,

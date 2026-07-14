@@ -4,7 +4,7 @@ import { AuthContext } from '../../../Context/AuthContext';
 import useAxiosSecure from '../../../Hook/useAxiosSecure';
 
 const PaymentHistory = () => {
-    const {user} = useContext(AuthContext);
+    const {user,loading} = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
 
     const {data:payments=[],isLoading} = useQuery({

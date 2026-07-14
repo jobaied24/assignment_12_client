@@ -1,6 +1,11 @@
 import { NavLink, Outlet } from "react-router";
+import useUserRole from "../Hook/useUserRole";
 
 const DashBoardLayout = () => {
+  const {role}= useUserRole();
+  console.log(role);
+
+  
     return (
 <div className="drawer lg:drawer-open">
   <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
@@ -16,6 +21,7 @@ const DashBoardLayout = () => {
             viewBox="0 0 24 24"
             className="inline-block h-6 w-6 stroke-current"
           >
+
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -40,6 +46,14 @@ const DashBoardLayout = () => {
       <NavLink>Profile</NavLink>
       <NavLink to="/dashBoard/myRegesteredCamps">My Registered camps</NavLink>
       <NavLink to="/dashBoard/paymentHistory">Payment History</NavLink>
+
+      {
+         role === 'organizer' &&
+         <>
+      <NavLink to="/dashBoard/addCamp">Add A Camp</NavLink>
+      <NavLink to ="/dashBoard/ManageCamps">Manage Camps</NavLink>
+         </>
+      }
     </ul>
   </div>
 </div>
@@ -47,3 +61,4 @@ const DashBoardLayout = () => {
 };
 
 export default DashBoardLayout;
+

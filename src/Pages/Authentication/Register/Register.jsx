@@ -21,7 +21,7 @@ const onSubmit = data =>{
     // update profile in database
     const userInfo = {
       email:data.email,
-      role:'participent',
+      role:'participant',
       created_at: new Date().toISOString(),
       last_login: new Date().toISOString()
     } ;

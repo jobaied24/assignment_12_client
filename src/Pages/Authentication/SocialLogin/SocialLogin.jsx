@@ -30,7 +30,7 @@ const SocialLogin = () => {
     // update profile in database
     const userInfo = {
       email:result.user.email,
-      role:'participent',
+      role:'participant',
       created_at: new Date().toISOString(),
       last_login: new Date().toISOString()
     } ;

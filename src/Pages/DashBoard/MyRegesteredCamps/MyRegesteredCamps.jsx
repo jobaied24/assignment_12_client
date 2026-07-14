@@ -10,6 +10,7 @@ import useAxiosSecure from "../../../Hook/useAxiosSecure";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import FeedbackModal from "../Feedback/FeedbackModal";
+import Loading from "../../../Loading";
 
 
 const MyRegisteredCamps = () => {
@@ -87,9 +88,7 @@ const MyRegisteredCamps = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center py-24">
-                <span className="loading loading-spinner loading-lg text-primary"></span>
-            </div>
+<Loading></Loading>
         );
     }
 
@@ -118,7 +117,7 @@ const MyRegisteredCamps = () => {
                     <tbody>
                         {myCamps.length === 0 ? (
                             <tr>
-                                <td colSpan="9" className="text-center py-10">
+                                <td colSpan="9" className="text-center text-primary text-lg py-10">
                                     No registered camps found.
                                 </td>
                             </tr>
