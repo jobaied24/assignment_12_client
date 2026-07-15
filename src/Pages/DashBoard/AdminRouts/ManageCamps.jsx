@@ -22,72 +22,72 @@ const ManageCamps = () => {
         },
     });
 
-    console.log(camps)
 
-const formatDateTime = (date) => {
-    const d = new Date(date);
+    const formatDateTime = (date) => {
+        const d = new Date(date);
 
-    return (
-        <>
-            <p>{d.toLocaleDateString()}</p>
-            <p className="text-xs text-gray-500">
-                {d.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                })}
-            </p>
-        </>
-    );
-};
+        return (
+            <>
+                <p>{d.toLocaleDateString()}</p>
+                <p className="text-xs text-gray-500">
+                    {d.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    })}
+                </p>
+            </>
+        );
+    };
 
-    // Delete Mutation
-    const deleteCampMutation = useMutation({
+
+    // delete Mutation 
+    const deleteMutation = useMutation({
         mutationFn: async (id) => {
-            const res = await axiosSecure.delete(`/delete-camp/${id}`);
-            return res.data;
+            const result = await axiosSecure.delete(`/delete-camp/${id}`);
+            return result.data;
         },
 
         onSuccess: () => {
             refetch();
 
             Swal.fire({
-                title: "Deleted!",
-                text: "Camp deleted successfully.",
+                position: "top-end",
                 icon: "success",
+                title: "Camp deleted successfully!",
+                showConfirmButton: false,
+                timer: 1500
             });
         },
-
         onError: (error) => {
             Swal.fire({
                 icon: "error",
-                title: "Delete Failed",
+                title: "Failed to delete camp",
                 text: error.message,
             });
-        },
-    });
+        }
+    })
 
-    // Delete
-    const handleDelete = (id) => {
+
+    // delete 
+    const handleDelete = id => {
+        console.log(id);
+
         Swal.fire({
-            title: "Delete this camp?",
-            text: "This action cannot be undone.",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#2B87F0",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Delete",
-            cancelButtonText: "Keep Camp",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                deleteCampMutation.mutate(id);
-            }
-        });
-    };
+  title: "Are you sure?",
+  text: "You won't be able to revert this!",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, delete it!"
+}).then((result) => {
 
-    // Update
-    const handleUpdate = (id) => {
-        navigate(`/dashboard/update-camp/${id}`);
-    };
+    if (result.isConfirmed) {
+      deleteMutation.mutate(id);   
+  }
+});
+    }
+
 
     if (isLoading) {
         return <Loading />;
@@ -147,7 +147,7 @@ const formatDateTime = (date) => {
                                             </h3>
 
                                             <p className="text-xs text-gray-500">
-                                              {camp.location}
+                                                {camp.location}
                                             </p>
                                         </div>
                                     </td>
@@ -169,13 +169,12 @@ const formatDateTime = (date) => {
 
                                     {/* Fee */}
                                     <td className="font-semibold text-primary">
-                                         {camp.campFees} $
+                                        {camp.campFees} $
                                     </td>
 
                                     {/* Update */}
                                     <td>
                                         <button
-                                            onClick={() => handleUpdate(camp._id)}
                                             className="btn btn-secondary btn-sm"
                                         >
                                             <FaEdit />
@@ -186,7 +185,7 @@ const formatDateTime = (date) => {
                                     {/* Delete */}
                                     <td>
                                         <button
-                                            onClick={() => handleDelete(camp._id)}
+                                            onClick={() => { handleDelete(camp._id) }}
                                             className="btn btn-error btn-sm"
                                         >
                                             <FaTrashAlt />

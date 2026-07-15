@@ -38,11 +38,11 @@ if(status === 403){
 }
 
 else if(status === 401){
-    logOut()
-    .then(()=>{
-        navigate('/login');
-    })
-    .catch(()=>{})
+    // logOut()
+    // .then(()=>{
+    //     navigate('/login');
+    // })
+    // .catch(()=>{})
 }
 
 return Promise.reject(error);
