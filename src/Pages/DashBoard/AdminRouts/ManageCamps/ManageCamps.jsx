@@ -3,8 +3,9 @@ import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import useAxiosSecure from "../../../Hook/useAxiosSecure";
-import Loading from "../../../Loading";
+import useAxiosSecure from "../../../../Hook/useAxiosSecure";
+import Loading from "../../../../Loading";
+import ManageCampModal from "./ManageCampModal";
 
 const ManageCamps = () => {
     const axiosSecure = useAxiosSecure();
@@ -40,6 +41,9 @@ const ManageCamps = () => {
     };
 
 
+    // updateMutation
+
+
     // delete Mutation 
     const deleteMutation = useMutation({
         mutationFn: async (id) => {
@@ -65,7 +69,7 @@ const ManageCamps = () => {
                 text: error.message,
             });
         }
-    })
+    });
 
 
     // delete 
@@ -86,7 +90,7 @@ const ManageCamps = () => {
       deleteMutation.mutate(id);   
   }
 });
-    }
+    };
 
 
     if (isLoading) {
@@ -174,18 +178,13 @@ const ManageCamps = () => {
 
                                     {/* Update */}
                                     <td>
-                                        <button
-                                            className="btn btn-secondary btn-sm"
-                                        >
-                                            <FaEdit />
-                                            Update
-                                        </button>
+                                 <ManageCampModal camp={camp} refetch={refetch}></ManageCampModal>
                                     </td>
 
                                     {/* Delete */}
                                     <td>
                                         <button
-                                            onClick={() => { handleDelete(camp._id) }}
+                                            onClick={() =>handleDelete(camp._id)}
                                             className="btn btn-error btn-sm"
                                         >
                                             <FaTrashAlt />

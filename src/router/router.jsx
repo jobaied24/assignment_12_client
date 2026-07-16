@@ -15,7 +15,7 @@ import Payment from "../Pages/DashBoard/Payment/Payment";
 import PaymentHistory from "../Pages/DashBoard/Payment/PaymentHistory";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import OrganizerRouts from "../Routs/OrganizerRouts";
-import ManageCamps from "../Pages/DashBoard/AdminRouts/ManageCamps";
+import ManageCamps from "../Pages/DashBoard/AdminRouts/ManageCamps/ManageCamps";
 
 export const router = createBrowserRouter([
   {
