@@ -52,6 +52,7 @@ const DashBoardLayout = () => {
          <>
       <NavLink to="/dashBoard/addCamp">Add A Camp</NavLink>
       <NavLink to ="/dashBoard/ManageCamps">Manage Camps</NavLink>
+      <NavLink to ="/dashBoard/ManageRegisteredCamps"> Manage Registered Camps</NavLink>
          </>
       }
     </ul>

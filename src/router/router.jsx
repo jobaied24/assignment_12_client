@@ -16,6 +16,7 @@ import PaymentHistory from "../Pages/DashBoard/Payment/PaymentHistory";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import OrganizerRouts from "../Routs/OrganizerRouts";
 import ManageCamps from "../Pages/DashBoard/AdminRouts/ManageCamps/ManageCamps";
+import ManageRegisteredCamps from "../Pages/DashBoard/ManageRegisteredCamps/ManageRegisteredCamps";
 
 export const router = createBrowserRouter([
   {
@@ -82,6 +83,12 @@ export const router = createBrowserRouter([
         path:'manageCamps',
         element:<OrganizerRouts>
           <ManageCamps></ManageCamps>
+        </OrganizerRouts>
+      },
+      {
+        path:'ManageRegisteredCamps',
+        element:<OrganizerRouts>
+          <ManageRegisteredCamps></ManageRegisteredCamps>
         </OrganizerRouts>
       }
     ]
