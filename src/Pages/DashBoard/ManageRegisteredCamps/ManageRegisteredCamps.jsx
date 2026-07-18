@@ -16,7 +16,8 @@ const ManageRegisteredCamps = () => {
     });
 
     console.log(allregisteredCamps);
-
+   
+    // confirmation mutation
     const confirmationMutation = useMutation({
       mutationFn:async(id)=>{
         const result = await axiosSecure.patch(`/update-confirmationStatus/${id}`);
@@ -44,6 +45,35 @@ const ManageRegisteredCamps = () => {
     });
 
 
+    // cancel registration mutation
+    const cancelMutation = useMutation({
+      mutationFn:async(id)=>{
+        const result = await axiosSecure.delete(`/organizer/campRegistration/${id}`);
+        return result.data;
+      },
+      onSuccess:()=>{
+                refetch();
+        
+        Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Registration cancelled",
+  showConfirmButton: false,
+  timer: 1500
+});
+      },
+      
+      onError:()=>{
+        Swal.fire({
+  icon: "error",
+  title: "Cancellation Failed",
+  text: "Unable to cancel the registration. Please try again.",
+});
+    }
+})
+
+
+    // update confirm status
     const handleUpdateConfiramtion = id =>{
       Swal.fire({
   title: "Are you sure?",
@@ -59,6 +89,27 @@ const ManageRegisteredCamps = () => {
   }
 });
       
+    };
+
+
+    // cancel registration
+    const handleCancelRegistration = id =>{
+
+      Swal.fire({
+  title: "Cancel Registration?",
+  text: "This registration will be permanently removed.",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+ confirmButtonText: "Yes, Remove",
+  cancelButtonText: "Keep Registration"
+}).then((result) => {
+  if (result.isConfirmed) {
+    cancelMutation.mutate(id);
+  }
+});
+
     }
 
     return (
@@ -147,7 +198,9 @@ const ManageRegisteredCamps = () => {
                   {/* Actions */}
                   <td>
             
-                      <button className="btn btn-error btn-sm">
+                      <button
+                      onClick={()=>handleCancelRegistration(camp._id)}
+                      className="btn btn-error btn-sm">
                         <FaTrashAlt />
                         Cancel
                       </button>
