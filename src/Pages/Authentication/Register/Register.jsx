@@ -22,6 +22,7 @@ const onSubmit = data =>{
     const userInfo = {
       email:data.email,
       role:'participant',
+      phone:data.phone,
       created_at: new Date().toISOString(),
       last_login: new Date().toISOString()
     } ;

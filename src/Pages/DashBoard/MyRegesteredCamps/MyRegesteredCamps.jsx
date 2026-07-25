@@ -94,7 +94,7 @@ const MyRegisteredCamps = () => {
 
     return (
         <div className="bg-base-100 rounded-xl shadow-xs p-6">
-            <h2 className="text-3xl font-bold text-secondary mb-6">
+            <h2 className="text-3xl font-bold text-secondary mb-5">
                 My Registered Camps
             </h2>
 
@@ -140,7 +140,7 @@ const MyRegisteredCamps = () => {
 
                                     {/* camp fees */}
                                     <td className="font-semibold text-primary">
-                                        ৳ {camp.campFees}
+                                         {camp.campFees} $
                                     </td>
 
                                     {/* participantName */}

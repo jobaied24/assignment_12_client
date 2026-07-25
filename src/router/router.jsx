@@ -17,6 +17,7 @@ import Forbidden from "../Pages/Forbidden/Forbidden";
 import OrganizerRouts from "../Routs/OrganizerRouts";
 import ManageCamps from "../Pages/DashBoard/AdminRouts/ManageCamps/ManageCamps";
 import ManageRegisteredCamps from "../Pages/DashBoard/ManageRegisteredCamps/ManageRegisteredCamps";
+import Profile from "../Pages/DashBoard/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       <DashBoardLayout></DashBoardLayout>
     </PrivateRouts>,
     children: [
+      {
+         path:'profile',
+         element:<Profile></Profile>
+      },
       {
         path: 'myRegesteredCamps',
         element: <MyRegesteredCamps></MyRegesteredCamps>
