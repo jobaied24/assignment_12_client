@@ -64,12 +64,36 @@ const Navbar = () => {
 }
     </ul>
   </div>
-  <div className="navbar-end">
-    {
-      user ? <a onClick={handleLogOut} className="btn btn-primary">Logout</a>
-      : <Link to='login' className="btn btn-primary">LogIn</Link>
-    }
+
+  <div className="navbar-end flex gap-4">
+
+{/* dropdown */}
+{
+  user ?  
+   <div className="dropdown dropdown-end">
+  <div tabIndex={0} role="button">
+              <img src={user?.photoURL} className='w-14 h-14 object-cover rounded-full' alt="Photo" />
+  </div>
+  <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-58 m-3 p-2 shadow-sm space-y-2">
+
+{/* name */}
+<li className="text-primary font-bold text-lg mx-auto">
+      {user?.displayName}
+</li>
     
+    <li className="text-primary font-bold text-lg mx-auto">
+      <Link to='/dashboard'>Dashboard</Link>
+      </li>
+    
+    <li>
+  
+   <a onClick={handleLogOut} className="btn btn-primary">Logout</a>
+  
+    </li>
+  </ul>
+</div> : <Link to='login' className="btn btn-primary">LogIn</Link>
+}
+
   </div>
 </div>
     );
