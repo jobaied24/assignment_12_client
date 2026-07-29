@@ -10,6 +10,7 @@ import {
   FaUserCircle,
   FaClipboardCheck,
 } from "react-icons/fa";
+import CampCureLogo from "../Pages/Shared/CampLogo/CampCureLogo";
 
 const DashBoardLayout = () => {
   const { role } = useUserRole();
@@ -51,7 +52,12 @@ const DashBoardLayout = () => {
       <div className="drawer-side">
         <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay"></label>
        
-<ul className="menu bg-base-200 min-h-full w-80 px-3 py-10 space-y-2">
+<ul className="menu bg-base-200 min-h-full w-80 px-3 py-7 space-y-2">
+
+  {/* Logo */}
+  <div className="mb-4"> 
+  <CampCureLogo></CampCureLogo>
+  </div>
 
   {/* Participant Sidebar */}
   {role === "participant" && (

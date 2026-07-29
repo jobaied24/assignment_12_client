@@ -9,12 +9,13 @@ import {
   FaUserEdit,
 } from "react-icons/fa";
 import UpdateProfileModal from "./UpdateProfileModal";
+import Loading from "../../../Loading";
 
 const Profile = () => {
-  const { user } = useContext(AuthContext);
+  const { user,loading} = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  const { data: userFromdb = {},refetch} = useQuery({
+  const { data: userFromdb = {},refetch,isLoading} = useQuery({
     queryKey: ["users", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
@@ -27,6 +28,13 @@ const Profile = () => {
     if (!date) return "N/A";
     return new Date(date).toLocaleDateString();
   };
+
+
+  if(loading || isLoading){
+    return <Loading></Loading>
+  }
+
+  console.log(user?.photoURL)
 
   return (
     <div className="bg-base-100 p-6">
@@ -45,12 +53,15 @@ const Profile = () => {
           <div className="w-1/4 flex flex-col items-center">
 
             <div className="relative">
-
+            {
+              user && 
               <img
-                src={user?.photoURL}
+                src={user?.photoURL} 
                 alt="Profile"
                 className="w-36 h-36 rounded-full object-cover border-[5px] border-primary shadow-lg"
               />
+
+            }
 
               <span className="badge badge-primary absolute left-1/2 -translate-x-1/2 -bottom-3 px-5 py-3 capitalize shadow">
                 {userFromdb.role}
