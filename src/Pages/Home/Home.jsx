@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import CampCard from './CampCard/CampCard';
 import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router';
+import FeedBackRatings from './FeedBackRatings/FeedBackRatings';
+import WhyChooseCampCure from './WhyChooseCampCure/WhyChooseCampCure';
 
 const Home = () => {
     const axios = useAxios();
@@ -27,7 +29,7 @@ const Home = () => {
                 direction='up'
                 duration={600}
                 delay={0}>
-                <h2 className='text-5xl text-center mt-20 md:mt-24 font-semibold text-[#34ebae]'>
+                <h2 className='text-4xl text-center mt-20 md:mt-24 font-semibold text-primary'>
                     Popular Medical Camps
                 </h2>
             </Fade>
@@ -44,6 +46,14 @@ const Home = () => {
             <div className='flex justify-center'>
             <Link to='/allCamps' className='btn btn-primary btn-outline text-lg px-6 md:px-8 hover:scale-105 transition'>See All Camps</Link>
             </div>
+
+
+            {/* FeedBack and Ratings */}
+            <FeedBackRatings></FeedBackRatings>
+
+
+            {/* why choose camp cure  */}
+            <WhyChooseCampCure></WhyChooseCampCure>
 
         </div>
     );
