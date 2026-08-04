@@ -29,7 +29,7 @@ const Home = () => {
                 direction='up'
                 duration={600}
                 delay={0}>
-                <h2 className='text-4xl text-center mt-20 md:mt-24 font-semibold text-primary'>
+                <h2 className='text-5xl text-center mt-20 md:mt-24 font-semibold text-primary'>
                     Popular Medical Camps
                 </h2>
             </Fade>

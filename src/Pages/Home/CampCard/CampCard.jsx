@@ -15,8 +15,6 @@ const formattedDate = date.toLocaleString('en-US', {
   hour12: true
 });
 
-console.log(formattedDate);
-
 
     return (
 <div className="card bg-base-100 transition-transform duration-400 shadow-xl hover:shadow-2xl">
