@@ -1,19 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../Hook/useAxiosSecure';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { FaCheckCircle, FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import Pagination from '../../Shared/Pagination/Pagination';
+import SearchBar from '../../Shared/SearchBar/SearchBar';
 
 const ManageRegisteredCamps = () => {
     const axiosSecure = useAxiosSecure();
+        const [searchText, setSearchText] = useState('');
+        const [search, setSearch] = useState('');
+        const [page, setPage] = useState(1);
 
-    const {data:allregisteredCamps=[],isLoading,refetch} = useQuery({
-     queryKey:['allregisteredCamps'],
+    const {data,isLoading,refetch} = useQuery({
+     queryKey:['allregisteredCamps',search,page],
      queryFn:async()=>{
-        const result = await axiosSecure.get('/allRegisteredCamp');
+        const result = await axiosSecure.get(`/allRegisteredCamp?page=${page}&search=${search}&limit=10`);
         return result.data;
      }
     });
+
+    const allregisteredCamps = data?.result || [];
+    const totalPages = data?.totalPages || 1;
+
 
     console.log(allregisteredCamps);
    
@@ -114,8 +123,20 @@ const ManageRegisteredCamps = () => {
 
     return (
         <div className='bg-base-100 p-6'>
-           <h2 className='text-3xl font-bold text-secondary mb-5'>Manage Registered Camps</h2>
+           <h2 className='text-3xl font-bold text-secondary mb-2'>Manage Registered Camps</h2>
 
+
+            {/* Search */}
+            <SearchBar searchText={searchText} setSearchText={setSearchText}
+                onSearch={() => {
+                    setPage(1);
+                    setSearch(searchText.trim());
+                }}
+                placeholder="Search by camp name, date or healthcare professional..."
+            ></SearchBar>
+
+
+            {/* table */}
            <div className="overflow-x-auto">
    <table className="table table-zebra">
 
@@ -146,7 +167,7 @@ const ManageRegisteredCamps = () => {
               allregisteredCamps.map((camp, index) => (
                 <tr key={camp._id} className="hover">
 
-                  <td>{index + 1}</td>
+                  <td>{(page-1) * 10 + index + 1}</td>
 
                   <td>
                     <div>
@@ -213,6 +234,9 @@ const ManageRegisteredCamps = () => {
           </tbody>
 
         </table>
+
+      {/* pagination */}
+        <Pagination  page={page} setPage={setPage} totalPages={totalPages}></Pagination>
            </div>
         </div>
     );

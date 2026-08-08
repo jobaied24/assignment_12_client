@@ -11,7 +11,7 @@ import WhyChooseCampCure from './WhyChooseCampCure/WhyChooseCampCure';
 const Home = () => {
     const axios = useAxios();
 
-    const { data: camps = [], isLoading } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['popular-camps'],
         queryFn: async () => {
             const res = await axios.get('/camps?limit=6');
@@ -19,6 +19,8 @@ const Home = () => {
         }
     });
 
+     const camps = data?.result || [];
+     
     console.log(camps);
     return (
         <div>

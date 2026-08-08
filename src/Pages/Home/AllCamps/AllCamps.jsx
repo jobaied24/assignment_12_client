@@ -10,8 +10,9 @@ const AllCamps = () => {
     const [searchText, setSearchText] = useState("");
     const [search,setSearch] = useState("");
     const [sort,setSort] = useState("registered");
+    const [layout,setLayout] = useState("3columns")
 
-    const {data:camps=[],isLoading,refetch} = useQuery({
+    const {data,isLoading,refetch} = useQuery({
         queryKey:['camps',search,sort],
         queryFn:async()=>{
             const res = await axiosSecure.get(`/camps?search=${search}&sort=${sort}`);
@@ -19,19 +20,21 @@ const AllCamps = () => {
         },
     });
 
+     const camps = data?.result || [];
+
     console.log(camps);
     console.log(search);
     console.log(sort);
 
     return (
         <div>
-       <div className='text-4xl text-center mt-8  font-semibold text-primary'>
+       <div className='text-4xl text-center mt-7 mb-2 font-semibold text-primary'>
         Available Camps
        </div>
 
 
 {/* search & sort */}
-<div className="bg-white rounded-2xl shadow-xs pb-6 px-12 mb-8">
+<div className="bg-white rounded-2xl shadow-xs pb-6 mb-2 px-12">
   <div className="flex flex-col md:flex-row md:items-end gap-8">
 
     {/* Search */}
@@ -96,10 +99,33 @@ const AllCamps = () => {
       </label>
     </div>
 
+
+    {/* change layout */}
+{/* Change Layout */}
+<div className="md:w-60">
+  <label className="label">
+    <span className="label-text font-semibold text-secondary mb-1">
+      Layout
+    </span>
+  </label>
+
+  <button
+    onClick={() =>
+      setLayout(layout === "3columns" ? "2columns" : "3columns")
+    }
+    className="btn btn-primary w-full rounded-xl"
+  >
+    {layout === "3columns"
+      ? "Switch to 2 Columns"
+      : "Switch to 3 Columns"}
+  </button>
+</div>
+ 
+
   </div>
 </div>
 
-        <div className='grid md:grid-cols-3 grid-cols-1 gap-8 mt-8 md:mt-10 mb-4 md:mb-16 mx-12'>
+        <div className={`grid ${layout === "3columns" ? "md:grid-cols-3" : "md:grid-cols-2" }  grid-cols-1 gap-8 mt-2 md:mt-4 mb-4 md:mb-16 mx-12`}>
             {
                 camps.map(camp=><CampCard key={camp._id} camp={camp}></CampCard>)
             }

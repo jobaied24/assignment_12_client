@@ -1,23 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../../Context/AuthContext';
 import useAxiosSecure from '../../../Hook/useAxiosSecure';
+import SearchBar from '../../Shared/SearchBar/SearchBar';
+import Pagination from '../../Shared/Pagination/Pagination';
+import { data } from 'react-router';
 
 const PaymentHistory = () => {
-    const {user,loading} = useContext(AuthContext);
-    const axiosSecure = useAxiosSecure();
+  const { user, loading } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
+          const [searchText, setSearchText] = useState('');
+          const [search, setSearch] = useState('');
+          const [page, setPage] = useState(1);
 
-    const {data:payments=[],isLoading} = useQuery({
-        queryKey:['paymentHistory',user?.email],
-        queryFn:async()=>{
-            const res = await axiosSecure.get(`/paymentHistory?email=${user?.email}`);
-            return res.data; 
-        }
-    });
+  const { data , isLoading } = useQuery({
+    queryKey: ['paymentHistory', user?.email,search,page],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/paymentHistory?email=${user?.email}&search=${search}&page=${page}&limit=10`);
+      return res.data;
+    }
+  });
 
-    console.log(payments);
+  const payments = data?.result || [];
+  const totalPages = data?.totalPages || 1;
 
-    const formatDate = (date) =>
+  console.log(payments);
+
+  const formatDate = (date) =>
     new Date(date).toLocaleDateString();
 
   if (isLoading) {
@@ -28,13 +37,25 @@ const PaymentHistory = () => {
     );
   }
 
-    
-    return (
-<div className="bg-base-100 rounded-xl shadow-xs py-6 px-10">
-      <h2 className="text-3xl font-bold text-secondary mb-6">
+
+  return (
+    <div className="bg-base-100 rounded-xl shadow-xs py-6 px-10">
+      <h2 className="text-3xl font-bold text-secondary mb-2">
         Payment History
       </h2>
 
+
+      {/* Search */}
+      <SearchBar searchText={searchText} setSearchText={setSearchText}
+        onSearch={() => {
+          setPage(1);
+          setSearch(searchText.trim());
+        }}
+        placeholder="Search by camp name, date or healthcare professional..."
+      ></SearchBar>
+
+
+      {/* table */}
       <div className="overflow-x-auto">
         <table className="table table-zebra">
           <thead className="bg-primary text-white">
@@ -71,13 +92,13 @@ const PaymentHistory = () => {
                     </div>
                   </td>
 
-                  
+
                   <td className='text-gray-600'>
                     {payment.healthcareProfessional}
                   </td>
 
                   <td className="font-semibold text-primary">
-                     {payment.amount} $ 
+                    {payment.amount} $
                   </td>
 
                   <td className="font-mono text-sm text-gray-600">
@@ -90,9 +111,14 @@ const PaymentHistory = () => {
             )}
           </tbody>
         </table>
+
+        
+            {/* pagination */} 
+            <Pagination page={page} setPage={setPage} totalPages={totalPages}></Pagination>
+        
       </div>
     </div>
-    );
+  );
 };
 
 export default PaymentHistory;

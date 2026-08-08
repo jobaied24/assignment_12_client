@@ -19,7 +19,7 @@ const Analytics = ( ) => {
     const axiosSecure = useAxiosSecure();
 
     
-    const { data: registeredCamps = [], isLoading, refetch } = useQuery({
+    const  { data, isLoading }  = useQuery({
         queryKey: ["registeredCamp", user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -30,6 +30,7 @@ const Analytics = ( ) => {
         },
     });
 
+    const registeredCamps = data?.result || [];
     
   const totalCamps = registeredCamps.length;
 

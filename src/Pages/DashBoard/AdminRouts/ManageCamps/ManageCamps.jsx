@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -6,22 +6,32 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hook/useAxiosSecure";
 import Loading from "../../../../Loading";
 import ManageCampModal from "./ManageCampModal";
+import SearchBar from "../../../Shared/SearchBar/SearchBar";
+import Pagination from "../../../Shared/Pagination/Pagination";
 
 const ManageCamps = () => {
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
+    const [searchText, setSearchText] = useState('');
+    const [search, setSearch] = useState('');
+    const [page, setPage] = useState(1);
 
     const {
-        data: camps = [],
+        data,
         isLoading,
         refetch,
     } = useQuery({
-        queryKey: ["camps"],
+        queryKey: ["camps", search, page],
         queryFn: async () => {
-            const res = await axiosSecure.get("/camps");
+            const res = await axiosSecure.get(`/camps?page=${page}&search=${search}&limit=10`);
             return res.data;
         },
     });
+
+
+    const camps = data?.result || [];
+    const totalPages = data?.totalPages || 1;
+    const total = data?.total || 0;
 
 
     const formatDateTime = (date) => {
@@ -77,19 +87,19 @@ const ManageCamps = () => {
         console.log(id);
 
         Swal.fire({
-  title: "Are you sure?",
-  text: "You won't be able to revert this!",
-  icon: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#3085d6",
-  cancelButtonColor: "#d33",
-  confirmButtonText: "Yes, delete it!"
-}).then((result) => {
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
 
-    if (result.isConfirmed) {
-      deleteMutation.mutate(id);   
-  }
-});
+            if (result.isConfirmed) {
+                deleteMutation.mutate(id);
+            }
+        });
     };
 
 
@@ -100,15 +110,26 @@ const ManageCamps = () => {
     return (
         <div className="bg-base-100 rounded-xl shadow-xs p-6">
 
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-1">
                 <h2 className="text-3xl font-bold text-secondary">
                     Manage Camps
                 </h2>
 
                 <div className="badge badge-primary badge-lg">
-                    Total Camps: {camps.length}
+                    Total Camps: {total}
                 </div>
             </div>
+
+
+            {/* Search */}
+            <SearchBar searchText={searchText} setSearchText={setSearchText}
+                onSearch={() => {
+                    setPage(1);
+                    setSearch(searchText.trim());
+                }}
+                placeholder="Search by camp name, date or healthcare professional..."
+            ></SearchBar>
+
 
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
@@ -133,7 +154,9 @@ const ManageCamps = () => {
                                     colSpan="9"
                                     className="text-center text-primary text-lg py-10"
                                 >
-                                    No camps found.
+                                    {search
+                                        ? "No camps matched your search."
+                                        : "No camps found."}
                                 </td>
                             </tr>
                         ) : (
@@ -141,7 +164,7 @@ const ManageCamps = () => {
                                 <tr key={camp._id}>
 
                                     {/* Index */}
-                                    <td>{index + 1}</td>
+                                    <td>{(page - 1) * 10 + index + 1}</td>
 
                                     {/* Camp */}
                                     <td>
@@ -178,13 +201,13 @@ const ManageCamps = () => {
 
                                     {/* Update */}
                                     <td>
-                                 <ManageCampModal camp={camp} refetch={refetch}></ManageCampModal>
+                                        <ManageCampModal camp={camp} refetch={refetch}></ManageCampModal>
                                     </td>
 
                                     {/* Delete */}
                                     <td>
                                         <button
-                                            onClick={() =>handleDelete(camp._id)}
+                                            onClick={() => handleDelete(camp._id)}
                                             className="btn btn-error btn-sm"
                                         >
                                             <FaTrashAlt />
@@ -198,6 +221,10 @@ const ManageCamps = () => {
                     </tbody>
 
                 </table>
+
+        {/* pagination */}
+        <Pagination  page={page} setPage={setPage} totalPages={totalPages}></Pagination>
+
             </div>
         </div>
     );
