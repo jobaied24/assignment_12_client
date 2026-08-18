@@ -64,8 +64,8 @@ Swal.fire({
 
   return (
     <div>
-      <label htmlFor="feedback_modal" className="btn btn-outline btn-secondary btn-sm" >
-        <FaCommentDots />
+      <label htmlFor="feedback_modal" className="btn btn-outline btn-secondary btn-xs md:btn-sm" >
+        <FaCommentDots className='hidden md:block' />
         Feedback
       </label>
 

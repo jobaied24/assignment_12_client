@@ -56,7 +56,7 @@ const Analytics = ( ) => {
 
 
   return (
-    <div className="bg-gray-50 min-h-screen p-6">
+    <div className="bg-gray-50 min-h-screen p-4 md:p-6">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-secondary">
@@ -71,7 +71,7 @@ const Analytics = ( ) => {
 
          {/* Cards */}
 
-      <div className="grid md:grid-cols-3 gap-6 mb-10">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-10">
 
         <div className="bg-white rounded-2xl shadow-md p-6">
           <p className="text-gray-500">Registered Camps</p>
@@ -99,18 +99,20 @@ const Analytics = ( ) => {
 
       </div>
 
-<div className="mt-12 flex justify-center w-full">
-      <ResponsiveContainer width="80%" height={400}>
-        <BarChart
-          data={chartData}
-          layout="vertical"
-          margin={{
-            top: 10,
-            right: 50,
-            left: 40,
-            bottom: 10,
-          }}
-        >
+
+<div className="mt-8 md:mt-12 w-full overflow-x-auto">
+  <div className="min-w-[700px]">
+    <ResponsiveContainer width="100%" height={500}>
+      <BarChart
+        data={chartData}
+        layout="vertical"
+        margin={{
+          top: 10,
+          right: 60,
+          left: 10,
+          bottom: 10,
+        }}
+      >
           <CartesianGrid   stroke="#E5E7EB"
   strokeDasharray="2 2" />
 
@@ -119,16 +121,16 @@ const Analytics = ( ) => {
             tick={{ fontSize: 13 }}
           />
 
-          <YAxis
-            type="category"
-            dataKey="campName"
-            width={180}
-      tick={{
-  fill: "#374151",
-  fontSize: 13,
-  fontWeight: 500,
-}}
-          />
+<YAxis
+  type="category"
+  dataKey="campName"
+  width={200}
+  tick={{
+    fill: "#374151",
+    fontSize: 13,
+    fontWeight: 500,
+  }}
+/>
 
           <Tooltip
             formatter={(value) => [`$${value}`, "Camp Fee"]}
@@ -159,11 +161,13 @@ const Analytics = ( ) => {
         </BarChart>
       </ResponsiveContainer>
 </div>
+</div>
+
+
 
 
       {/* Legend */}
-      <div className="flex items-center gap-6 mb-6">
-        <div className="flex items-center gap-2">
+<div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 mb-6">        <div className="flex items-center gap-2">
           <span className="w-4 h-4 rounded-full bg-[#12ADDE]"></span>
           <span className="text-gray-600">Paid</span>
         </div>

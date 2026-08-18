@@ -4,7 +4,7 @@ import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://assignment12-server-smoky.vercel.app'
 });
 
 

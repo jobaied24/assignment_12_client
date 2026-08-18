@@ -104,11 +104,12 @@ const MyRegisteredCamps = () => {
     }
 
     return (
-        <div className="bg-base-100 rounded-xl shadow-xs p-6">
-            <h2 className="text-3xl font-bold text-secondary mb-5">
+        <div className="bg-base-100 rounded-xl shadow-xs md:p-6">
+       
+        <div className="mx-2 md:mx-0">
+                    <h2 className="text-2xl md:text-3xl font-bold text-secondary">
                 My Registered Camps
             </h2>
-
 
             {/* Search */}
             <SearchBar searchText={searchText} setSearchText={setSearchText}
@@ -118,127 +119,177 @@ const MyRegisteredCamps = () => {
                 }}
                 placeholder="Search by camp name, date or healthcare professional..."
             ></SearchBar>
+        </div>
 
 
 
             {/* table */}
-            <div className="overflow-x-auto">
+ {/* table */}
+<div className="overflow-x-auto">
 
-                <table className="table table-zebra">
-                    <thead className="bg-primary text-white">
-                        <tr>
-                            <th>#</th>
-                            <th>Camp Name</th>
-                            <th>Fees</th>
-                            <th>Participant</th>
-                            <th>Camp date</th>
-                            <th>Confirmation</th>
-                            <th>Payment</th>
-                            <th>Feedback</th>
-                            <th>Cancel</th>
-                        </tr>
-                    </thead>
+    <table className="table table-zebra">
 
-                    <tbody>
-                        {myCamps.length === 0 ? (
-                            <tr>
-                                <td colSpan="9" className="text-center py-10 text-primary">
-                                    {search
-                                        ? "No camps matched your search."
-                                        : "No registered camps found."}
-                                </td>
-                            </tr>
-                        ) : (
-                            myCamps.map((camp, index) => (
-                                <tr key={camp._id}>
+        <thead className="bg-primary text-white">
+            <tr>
+                <th className="hidden md:table-cell px-1 md:px-4 text-[10px] md:text-sm">
+                    #
+                </th>
 
-                                    {/* index */}
-                                    <td className="text-gray-700">
-                                        {(page - 1) * 10 + index + 1}
-                                    </td>
+                <th className="px-1 md:px-4 text-[10px] md:text-sm">
+                    Camp Name
+                </th>
 
-                                    {/* camp name */}
-                                    <td>
-                                        <div>
-                                            <h3 className="font-bold text-gray-600">{camp.campName}</h3>
-                                            <p className="text-xs text-gray-500">
-                                                {camp.location}
-                                            </p>
-                                        </div>
-                                    </td>
+                <th className="px-1 md:px-4 text-[10px] md:text-sm">
+                    Fees
+                </th>
 
-                                    {/* camp fees */}
-                                    <td className="font-semibold text-primary">
-                                        {camp.campFees} $
-                                    </td>
+                <th className="px-1 md:px-4 text-[10px] md:text-sm">
+                    Camp date
+                </th>
 
-                                    {/* participantName */}
-                                    <td className="text-gray-700">{camp.participantName}</td>
+                <th className="hidden md:table-cell px-1 md:px-4 text-[10px] md:text-sm">
+                    Confirmation
+                </th>
 
-                                    {/* camp date */}
-                                    <td className="text-gray-700">{formatDate(camp.campDate)}</td>
+                <th className="px-1 md:px-4 text-[10px] md:text-sm">
+                    Payment
+                </th>
 
-                                    {/* confirmationStatus */}
-                                    <td>
-                                        <span
-                                            className={`badge ${camp.confirmationStatus === "confirmed"
-                                                ? "badge-success"
-                                                : "badge-error"
-                                                }`}
-                                        >
-                                            {camp.confirmationStatus || "Pending"}
-                                        </span>
-                                    </td>
+                <th className="px-1 md:px-4 text-[10px] md:text-sm">
+                    Feedback
+                </th>
 
-                                    {/* paymentStatus */}
-                                    <td>
-                                        {camp.paymentStatus === "paid" ? (
-                                            <button
-                                                className="btn btn-success btn-sm px-6"
-                                                disabled
-                                            >
-                                                Paid
-                                            </button>
-                                        ) : (
-                                            <button onClick={() => { handlePay(camp._id) }} className="btn btn-primary btn-sm px-6">
-                                                {/* <FaMoneyBillWave /> */}
-                                                Pay
-                                            </button>
-                                        )}
-                                    </td>
+                <th className="px-1 md:px-4 text-[10px] md:text-sm">
+                    Cancel
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {myCamps.length === 0 ? (
+                <tr>
+                    <td
+                        colSpan="8"
+                        className="text-center py-10 text-xs md:text-base text-primary"
+                    >
+                        {search
+                            ? "No camps matched your search."
+                            : "No registered camps found."}
+                    </td>
+                </tr>
+            ) : (
+                myCamps.map((camp, index) => (
+                    <tr key={camp._id}>
+
+                        {/* Index */}
+                        <td className="hidden md:table-cell px-1 md:px-4 text-gray-700 text-xs md:text-sm">
+                            {(page - 1) * 10 + index + 1}
+                        </td>
+
+{/* Camp Name */}
+<td className="px-1 md:px-4">
+    <div className="max-w-[80px] sm:max-w-[130px] md:max-w-[200px]">
+
+        <h3 className="font-bold text-gray-600 text-[9px] sm:text-xs md:text-sm truncate">
+            {camp.campName}
+        </h3>
+
+        <p className="text-[7px] sm:text-[10px] md:text-xs text-gray-500 truncate">
+            {camp.location}
+        </p>
+
+        {/* Confirmation - mobile only */}
+        <span
+            className={`md:hidden badge badge-xs mt-1 ${
+                camp.confirmationStatus === "confirmed"
+                    ? "badge-success"
+                    : "badge-error"
+            }`}
+        >
+            {camp.confirmationStatus || "Pending"}
+        </span>
+
+    </div>
+</td>
+
+                        {/* Fees */}
+                        <td className="px-1 md:px-4 font-semibold text-primary text-[9px] sm:text-xs md:text-sm whitespace-nowrap">
+                            {camp.campFees} $
+                        </td>
+
+                        {/* Camp Date */}
+                        <td className="px-1 md:px-4 text-gray-700 text-[9px] sm:text-xs md:text-sm whitespace-nowrap">
+                            {formatDate(camp.campDate)}
+                        </td>
+
+                        {/* Confirmation */}
+                        <td className="hidden md:table-cell px-1 md:px-4">
+                            <span
+                                className={`badge badge-xs md:badge-sm ${
+                                    camp.confirmationStatus === "confirmed"
+                                        ? "badge-success"
+                                        : "badge-error"
+                                }`}
+                            >
+                                {camp.confirmationStatus || "Pending"}
+                            </span>
+                        </td>
+
+                        {/* Payment */}
+                        <td className="px-1 md:px-4">
+                            {camp.paymentStatus === "paid" ? (
+                                <button
+                                    className="btn btn-success btn-xs md:btn-sm px-2 md:px-6"
+                                    disabled
+                                >
+                                    Paid
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={() => handlePay(camp._id)}
+                                    className="btn btn-primary btn-xs md:btn-sm px-2 md:px-6"
+                                >
+                                    Pay
+                                </button>
+                            )}
+                        </td>
+
+                        {/* Feedback */}
+                        <td className="px-1 md:px-4">
+                            {camp.paymentStatus === "paid" ? (
+                                <FeedbackModal camp={camp} />
+                            ) : (
+                                <button
+                                    className="btn btn-outline btn-secondary btn-xs md:btn-sm px-1 md:px-3"
+                                    disabled
+                                >
+                                    <FaCommentDots className="text-[9px] md:text-sm hidden md:block" />
+                                    Feedback
+                                </button>
+                            )}
+                        </td>
+
+                        {/* Cancel */}
+                        <td className="px-1 md:px-4">
+                            <button
+                                className="btn btn-error btn-xs md:btn-sm px-1 md:px-3"
+                                onClick={() => handleCancel(camp._id)}
+                                disabled={camp.paymentStatus === "paid"}
+                            >
+                                <FaTrashAlt className="text-[9px] md:text-sm hidden md:block" />
+                                Cancel
+                            </button>
+                        </td>
+
+                    </tr>
+                ))
+            )}
+        </tbody>
+
+    </table>
+</div>
 
 
-                                    {/* feedback */}
-                                    <td>
-                                        {
-                                            camp.paymentStatus === "paid" ? <FeedbackModal camp={camp}></FeedbackModal>
-                                                : <button
-                                                    className="btn btn-outline btn-secondary btn-sm"
-                                                    disabled
-                                                >
-                                                    <FaCommentDots />
-                                                    Feedback
-                                                </button>
-                                        }
-                                    </td>
-
-                                    {/* cancel */}
-                                    <td>
-                                        <button
-                                            className="btn btn-error btn-sm"
-                                            onClick={() => handleCancel(camp._id)}
-                                            disabled={camp.paymentStatus === "paid"}
-                                        >
-                                            <FaTrashAlt />
-                                            Cancel
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
-            </div>
 
             {/* pagination */}
             <Pagination page={page} setPage={setPage} totalPages={totalPages}></Pagination>

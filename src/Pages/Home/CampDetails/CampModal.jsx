@@ -53,9 +53,9 @@ const CampModal = ({ camp,refetch}) => {
             <div className='modal' role='dialog'>
 
                 <div className='modal-box max-w-5xl'>
-                    <div className='card-body py-10 px-2'>
+                    <div className='card-body py-0 md:py-6 lg:py-10 px-0 md:px-2'>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <fieldset className="fieldset grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <fieldset className="fieldset grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
 
                                 {/* camp name */}
                                 <div>

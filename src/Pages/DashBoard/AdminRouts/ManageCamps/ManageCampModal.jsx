@@ -71,11 +71,14 @@ document.getElementById(`camp_modal_${camp._id}`).checked = false;
 
 
     return (
-        <div>
-            <label htmlFor={`camp_modal_${camp._id}`} className="btn btn-secondary btn-sm">
-                <FaEdit />
-                Update
-            </label>
+        <div >
+<label
+    htmlFor={`camp_modal_${camp._id}`}
+    className="btn btn-secondary btn-xs md:btn-sm px-2 md:px-3"
+>
+    <FaEdit className="hidden md:inline" />
+    Update
+</label>
 
             <input id={`camp_modal_${camp._id}`} className='modal-toggle' type="checkbox" />
 
@@ -83,10 +86,10 @@ document.getElementById(`camp_modal_${camp._id}`).checked = false;
                  <div className='modal-box mx-auto max-w-3xl bg-base-100 w-full my-12 p-1 shrink-0 shadow-2xl'>
 
         <div>
-            <h2 className='text-3xl mt-6 text-secondary text-center font-bold'> Update Medical Camp</h2>
-            <div className="card-body">
+            <h2 className='text-2xl md:text-3xl mt-3 md:mt-6 text-secondary text-center font-bold'> Update Medical Camp</h2>
+            <div className="card-body py-1 md:py-6">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <fieldset className="fieldset grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <fieldset className="fieldset grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-3">
 
                         {/* camp name */}
                         <div>

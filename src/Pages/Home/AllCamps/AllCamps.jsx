@@ -27,15 +27,16 @@ const AllCamps = () => {
     console.log(sort);
 
     return (
-        <div>
-       <div className='text-4xl text-center mt-7 mb-2 font-semibold text-primary'>
+        <div className=''>
+       <div className='text-3xl md:text-4xl text-center mt-3 md:mt-7 mb-1 md:mb-2 font-semibold text-primary'>
         Available Camps
        </div>
 
 
 {/* search & sort */}
-<div className="bg-white rounded-2xl shadow-xs pb-6 mb-2 px-12">
-  <div className="flex flex-col md:flex-row md:items-end gap-8">
+<div className="bg-white rounded-2xl shadow-xs pb-2 md:pb-6 mb-2 px-4 md:px-8 lg:px-12">
+
+<div className="flex flex-col md:flex-row md:items-end gap-2 md:gap-8">
 
     {/* Search */}
 <div className="flex-1">
@@ -67,8 +68,6 @@ const AllCamps = () => {
   </div>
 </div>
     
-
-
     {/* Sort */}
     <div className="md:w-76">
       <label className="label">
@@ -102,7 +101,7 @@ const AllCamps = () => {
 
     {/* change layout */}
 {/* Change Layout */}
-<div className="md:w-60">
+<div className="md:w-60 hidden md:block">
   <label className="label">
     <span className="label-text font-semibold text-secondary mb-1">
       Layout
@@ -125,7 +124,7 @@ const AllCamps = () => {
   </div>
 </div>
 
-        <div className={`grid ${layout === "3columns" ? "md:grid-cols-3" : "md:grid-cols-2" }  grid-cols-1 gap-8 mt-2 md:mt-4 mb-4 md:mb-16 mx-12`}>
+        <div className={`grid ${layout === "3columns" ? "md:grid-cols-3" : "md:grid-cols-2" }  grid-cols-1 gap-8 mt-2 md:mt-4 mb-4 md:mb-16 mx-4 md:mx-8 lg:mx-12`}>
             {
                 camps.map(camp=><CampCard key={camp._id} camp={camp}></CampCard>)
             }

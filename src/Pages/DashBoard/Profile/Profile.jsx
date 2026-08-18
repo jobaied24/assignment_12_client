@@ -37,20 +37,20 @@ const Profile = () => {
   console.log(user?.photoURL)
 
   return (
-    <div className="bg-base-100 p-6">
+    <div className="bg-base-100 p-4 md:p-6">
 
       {/* Page Heading */}
-      <h2 className="text-3xl font-bold text-secondary mb-6">
+      <h2 className="text-3xl font-bold text-secondary mb-2 md:mb-6">
         My Profile
       </h2>
 
       {/* Profile Card */}
-      <div className="rounded-3xl shadow-xl border border-gray-100 p-10 mt-10">
+      <div className="rounded-3xl shadow-xl border border-gray-100 p-4 md:p-10 md:mt-10">
 
-        <div className="flex items-center">
+        <div className="flex flex-col md:flex-row items-center">
 
           {/* Left */}
-          <div className="w-1/4 flex flex-col items-center">
+          <div className="md:w-1/4 flex flex-col items-center">
 
             <div className="relative">
             {
@@ -72,12 +72,12 @@ const Profile = () => {
           </div>
 
           {/* Divider */}
-          <div className="divider divider-horizontal h-44"></div>
+          <div className="divider md:divider-horizontal md:h-44"></div>
 
           {/* Middle */}
           <div className="flex-1 px-10">
 
-            <h2 className="text-4xl font-bold text-secondary">
+            <h2 className="text-3xl md:text-4xl font-bold text-secondary">
               {user?.displayName}
             </h2>
 
@@ -145,7 +145,7 @@ const Profile = () => {
         </div>
 
         {/* Bottom */}
-        <div className="flex justify-end mt-10">
+        <div className="md:flex text-center justify-end mt-10">
              <UpdateProfileModal  user={user} userFromdb={userFromdb} refetch={refetch}></UpdateProfileModal>
 
         </div>

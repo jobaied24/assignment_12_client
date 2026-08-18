@@ -43,7 +43,7 @@ const formattedDate = date.toLocaleString('en-US', {
     return (
 <div className="max-w-7xl mx-auto px-4 py-4">
       {/* Statistics Cards */}
-<div className="grid grid-cols-2 md:grid-cols-5 gap-4 my-6">
+<div className="grid grid-cols-2 md:grid-cols-5 gap-4 my-4 md:my-6">
 
 {/* participantCount */}
   <div className="card bg-[#EFF6FF] shadow-md hover:shadow-lg  hover:bg-blue-100 transition-all duration-200"> 
@@ -97,19 +97,19 @@ const formattedDate = date.toLocaleString('en-US', {
   <img
     src={camp.image}
     alt={camp.campName}
-    className="w-full h-[400px] shadow-md rounded-xl object-cover"
+    className="w-full lg:h-[400px] shadow-md rounded-xl object-cover"
   />
 
 
   {/* Description */}
   <div className=" card shadow-md h-full bg-[#EFF6FF]">
-    <div className='card-body p-10'>
+    <div className='card-body p-4 md:p-6 lg:p-10'>
 
-    <h2 className="text-3xl text-primary font-bold mb-4">
+    <h2 className="text-2xl md:text-3xl text-primary font-bold md:mb-4">
       About This Camp
     </h2>
 
-    <p className="text-gray-600 leading-8">
+    <p className="text-gray-600 leading-5 md:leading-8">
       {camp.description}
     </p>
     </div>
@@ -118,15 +118,15 @@ const formattedDate = date.toLocaleString('en-US', {
 
 
 {/* join camp button */}
-<div className="my-10 flex justify-between items-center bg-[#EFF6FF] rounded-2xl px-16 py-10 shadow-md">
+<div className="my-7 lg:my-10 md:flex justify-between items-center bg-[#EFF6FF] rounded-2xl px-4 md:px-8 lg:px-16 py-4 md:py-6 lg:py-10 shadow-md">
 
   <div>
 
-    <h2 className="text-3xl text-primary font-bold mb-4">
+    <h2 className="text-2xl md:text-3xl text-primary font-bold mb-2 md:mb-4">
       Ready to Join This Medical Camp?
     </h2>
 
-    <p className="max-w-2xl mx-auto text-gray-600 mb-6">
+    <p className="max-w-2xl mx-auto text-gray-600 mb-4 md:mb-6">
       Participate in this healthcare initiative and get access to
       professional medical consultations, screenings, and health
       awareness services.

@@ -10,7 +10,7 @@ const SearchBar = ({
   return (
     <div className="flex-1 mb-4">
       <label className="label">
-        <span className="label-text font-semibold text-secondary mb-1">
+        <span className="text-sm md:text-base font-semibold text-secondary mb-1">
           Search
         </span>
       </label>

@@ -31,11 +31,11 @@ const FeedBackRatings = () => {
 
 
   return (
-    <section className="py-20 bg-base-200 rounded-2xl">
+    <section className="mt-8 py-6 md:py-16 lg:py-20 bg-base-200 rounded-2xl">
       <div className="max-w-7xl mx-auto px-4">
 
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-14">
           <h2 className="text-4xl font-bold text-primary">
             Feedback & Ratings
           </h2>

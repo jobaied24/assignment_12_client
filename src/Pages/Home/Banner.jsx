@@ -28,7 +28,7 @@ const bannerData = [
 
 const Banner = () => {
     return (
-        <div className="w-full h-screen overflow-hidden">
+        <div className="w-full h-[65vh] md:h-[75vh] lg:h-screen overflow-hidden">
             <Carousel
                 autoPlay
                 interval={5000}
@@ -47,7 +47,7 @@ const Banner = () => {
                         {/* Background Image */}
                         <img
                             src={slide.image}
-                            className="w-full h-screen object-cover"
+                            className="w-full h-[65vh] md:h-[75vh] lg:h-screen object-cover"
                             alt={slide.title}
                         />
 
@@ -64,12 +64,10 @@ const Banner = () => {
                                     cascade
                                     damping={0.2}
                                 >
-                                    <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                                        {slide.title}
+<h1 className="text-3xl sm:text-3xl md:text-6xl font-bold mb-4">                                        {slide.title}
                                     </h1>
 
-                                    <p className="text-lg md:text-xl mb-6">
-                                        {slide.description}
+<p className="text-base sm:text-lg md:text-xl md:mb-6">                                        {slide.description}
                                     </p>
                                 </Fade>
                             </div>

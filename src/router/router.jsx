@@ -35,7 +35,10 @@ export const router = createBrowserRouter([
       },
       {
         path: 'camp-details/:campId',
-        element: <CampDetails></CampDetails>
+        element: <PrivateRouts>
+      <CampDetails></CampDetails>
+        </PrivateRouts>
+  
       },
       {
         path: '/forbidden',

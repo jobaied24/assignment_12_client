@@ -30,7 +30,7 @@ const DashBoardLayout = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                className="inline-block h-6 w-6 stroke-current"
+                className="inline-block h-6 w-6 stroke-current text-primary"
               >
 
                 <path
@@ -42,7 +42,6 @@ const DashBoardLayout = () => {
               </svg>
             </label>
           </div>
-          <div className="mx-2 flex-1 px-2">Navbar Title</div>
         </div>
 
         {/* Page content here */}

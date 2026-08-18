@@ -54,11 +54,11 @@ const WhyChooseCampCure = () => {
   ];
 
   return (
-    <section className="py-20 bg-base-100">
+    <section className="py-12 md:py-16 lg:py-20 bg-base-100">
       <div className="max-w-7xl mx-auto px-4">
 
         {/* Heading */}
-        <div className="max-w-3xl mx-auto  text-center mb-14">
+        <div className="max-w-3xl mx-auto  text-center mb-8 md:mb-14">
           <span className="text-secondary font-semibold uppercase tracking-widest">
             Why Choose Us
           </span>

@@ -58,11 +58,11 @@ const AddCamp = () => {
 
 
     return (
-        <div className="card mx-auto max-w-4xl bg-base-100 w-full my-12 shrink-0 shadow-2xl">
-            <h2 className='text-3xl mt-4 text-secondary text-center font-bold'>Add Medical Camp</h2>
-            <div className="card-body">
+        <div className="card mx-auto max-w-4xl bg-base-100 w-full  md:my-12 shrink-0 shadow-2xl">
+            <h2 className='text-2xl md:text-3xl mt-2 md:mt-4 text-secondary text-center font-bold'>Add Medical Camp</h2>
+            <div className="card-body py-1 md:py-4 px-4">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <fieldset className="fieldset grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <fieldset className="fieldset grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
 
                         {/* camp name */}
                         <div>
