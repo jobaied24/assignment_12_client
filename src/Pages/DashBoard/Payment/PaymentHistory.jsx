@@ -148,7 +148,7 @@ const PaymentHistory = () => {
                   {/* Transaction ID */}
                   <td className="px-2 py-2">
                     <p
-                      className="font-mono text-[10px] md:text-sm text-gray-600 max-w-[150px] md:max-w-[240px] truncate"
+                      className="font-mono text-[10px] md:text-sm text-gray-600 max-w-[130px] md:max-w-[240px] truncate"
                       title={payment.transactionId}
                     >
                       {payment.transactionId}
