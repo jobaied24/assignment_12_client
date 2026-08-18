@@ -44,11 +44,7 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      <li>
-        <NavLink className="p-3 my-1 bg-blue-50" to="/about" onClick={closeDrawer}>
-          ABOUT US
-        </NavLink>
-      </li>
+  
 
       <li>
         <NavLink className="p-3 my-1 bg-blue-50" to="/allCamps" onClick={closeDrawer}>
@@ -70,9 +66,6 @@ const Navbar = () => {
         <NavLink to="/">HOME</NavLink>
       </li>
 
-      <li>
-        <NavLink to="/about">ABOUT US</NavLink>
-      </li>
 
       <li>
         <NavLink to="/allCamps">ALL CAMPS</NavLink>
