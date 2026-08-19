@@ -3,9 +3,11 @@ import { NavLink, Link } from 'react-router';
 import CampCureLogo from '../CampLogo/CampCureLogo';
 import { AuthContext } from '../../../Context/AuthContext';
 import Swal from 'sweetalert2';
+import useUserRole from '../../../Hook/useUserRole';
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const {role} = useUserRole();
 
   const handleLogOut = () => {
     logOut()
@@ -24,9 +26,11 @@ const Navbar = () => {
   };
 
   const dashboardPath =
-    user?.role === 'organizer'
-      ? '/dashboard/manageCamps'
-      : '/dashboard/analytics';
+  role === 'organizer'
+    ? '/dashboard/manageCamps'
+    : role === 'participant'
+      ? '/dashboard/analytics'
+      : null;
 
   const closeDrawer = () => {
     const drawer = document.getElementById('mobile-drawer');

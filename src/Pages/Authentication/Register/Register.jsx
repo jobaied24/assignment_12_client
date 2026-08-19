@@ -1,22 +1,25 @@
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../../Context/AuthContext';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import axios from 'axios';
 import useAxios from '../../../Hook/useAxios';
+import Swal from 'sweetalert2';
 
 const Register = () => {
   const {register,handleSubmit}=useForm();
   const {createUser,updateProfilePic}=useContext(AuthContext);
   const [profilePic,setProfilePic]=useState('');
   const axiosInstance=useAxios();
+    const location = useLocation();
+  const from = location.state?.from || '/';
+  const navigate = useNavigate();
 
 const onSubmit = data =>{
   createUser(data.email,data.password)
   .then(async(result)=>{
-    console.log('user registered successfully');
-    console.log(result.user);
+   
 
     // update profile in database
     const userInfo = {
@@ -45,6 +48,17 @@ updateProfilePic(updateProfileInfo)
 .catch((error)=>{
   console.log(error);
 })
+
+            Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "user registered successfully!",
+      showConfirmButton: false,
+      timer: 1500
+    });
+    
+    navigate(from);
+
   })
 };
 
